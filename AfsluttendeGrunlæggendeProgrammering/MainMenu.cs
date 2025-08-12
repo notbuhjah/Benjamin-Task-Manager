@@ -17,6 +17,7 @@ public class MainMenu
             Console.WriteLine("5. Exit");
             Console.Write("Choose an option: ");
             string chosen = "" + Console.ReadLine();
+            bool continueTask = true;
 
             switch (chosen)
             {
@@ -43,7 +44,11 @@ public class MainMenu
                         for (int i = 0; i < tasks.Count; i++)
                         {
                             var status = tasks[i].Complete ? "[Done]" : "[Not done]";
-                            Console.WriteLine($"{i + 1}. {tasks[i].TaskName} {status}");
+                            Console.Write($"{i + 1}. {tasks[i].TaskName}  ");
+                            Console.ForegroundColor = tasks[i].Complete ? ConsoleColor.Green : ConsoleColor.Red;
+                            Console.Write($"  {status}\n");
+                            Console.ResetColor();
+
                         }
                     }
                     break;
@@ -59,13 +64,24 @@ public class MainMenu
                         for (int i = 0; i < tasks.Count; i++)
                         {
                             var status = tasks[i].Complete ? "[Done]" : "[Not done]";
-                            Console.Write($"{i + 1}. {tasks[i].TaskName} {status}\n");
+                            Console.Write($"{i + 1}. {tasks[i].TaskName}  ");
+                            Console.ForegroundColor = tasks[i].Complete ? ConsoleColor.Green : ConsoleColor.Red;
+                            Console.Write($"  {status}\n");
+                            Console.ResetColor();
                         }
                     }
                     if (int.TryParse(Console.ReadLine(), out int number) && number >= 1 && number <= tasks.Count)
                     {
-                        tasks[number - 1].Complete = true;
-                        Console.WriteLine("Task marked as complete!");
+                        if (tasks[number - 1].Complete == true)
+                        {
+                            Console.WriteLine("This task is already complete!");
+                        }
+                        else
+                        {
+                            tasks[number - 1].Complete = true;
+                            Console.WriteLine("Task marked as complete!");
+                            tasks = tasks.OrderBy(i => i.Complete).ToList();
+                        }
                     }
                     else { Console.WriteLine("Invalid number!"); }
                     break;
@@ -81,7 +97,10 @@ public class MainMenu
                         for (int i = 0; i < tasks.Count; i++)
                         {
                             var status = tasks[i].Complete ? "[Done]" : "[Not done]";
-                            Console.Write($"{i + 1}. {tasks[i].TaskName} {status}\n");
+                            Console.Write($"{i + 1}. {tasks[i].TaskName}  ");
+                            Console.ForegroundColor = tasks[i].Complete ? ConsoleColor.Green : ConsoleColor.Red;
+                            Console.Write($"  {status}\n");
+                            Console.ResetColor();
                         }
                     }
                     if (int.TryParse(Console.ReadLine(), out int number2) && number2 >= 1 && number2 <= tasks.Count)
@@ -93,13 +112,19 @@ public class MainMenu
                     break;
                 case "5":
                     True = false;
+                    continueTask = false;
                     Console.WriteLine("Goodbye!");
                     break;
                 default:
+                    continueTask = false;
                     break;
             }
-            Console.WriteLine("Press any button to continue");
-            Console.ReadKey();
+
+            if (continueTask)
+            {
+                Console.WriteLine("\nPress any button to continue");
+                Console.ReadKey();
+            }
         }
     }
 }
