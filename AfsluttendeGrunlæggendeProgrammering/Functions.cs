@@ -1,5 +1,8 @@
+using System.Text.Json;
+
 public class Functions
 {
+    public static string filepath = "tasks.json";
     public static void AddTaskFnc()
     {
         if (MainMenu.tasks.Count >= 5) { Console.Clear(); Console.WriteLine("You can have a max of 5 active tasks!"); }
@@ -10,6 +13,8 @@ public class Functions
             string title = "" + Console.ReadLine();
             MainMenu.tasks.Add(new TaskItem(title));
             Console.WriteLine("Task added!");
+            
+            MainMenu.tasks = MainMenu.tasks.OrderBy(i => i.Complete).ToList();
         }
     }
     public static void ShowTasks()
@@ -64,4 +69,30 @@ public class Functions
         }
         else { MainMenu.continueTask = false; }
     }
+    public static void SaveTaskFile()
+    {
+        string json = JsonSerializer.Serialize(MainMenu.tasks, new JsonSerializerOptions { WriteIndented = true });
+        File.WriteAllText(filepath, json);
+    }
+    public static void LoadTasks()
+    {
+        if (File.Exists(filepath))
+        {
+            string json = File.ReadAllText(filepath);
+
+            if (!string.IsNullOrWhiteSpace(json))
+            {
+                MainMenu.tasks = JsonSerializer.Deserialize<List<TaskItem>>(json) ?? new List<TaskItem>();
+            }
+            else
+            {
+                MainMenu.tasks = new List<TaskItem>();
+            }
+        }
+        else
+        {
+            MainMenu.tasks = new List<TaskItem>();
+        }
+    }
+
 }

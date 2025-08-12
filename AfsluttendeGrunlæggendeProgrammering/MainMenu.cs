@@ -7,7 +7,7 @@ public class MainMenu
     public static bool continueTask = true;
     public static void MMenu()
     {
-
+        Functions.LoadTasks();
         bool True = true;
         while (True)
         {
@@ -21,7 +21,7 @@ public class MainMenu
             Console.Write("Choose an option: ");
             string chosen = "" + Console.ReadLine();
             continueTask = true;
-
+            
             switch (chosen)
             {
                 case "1":
@@ -39,18 +39,18 @@ public class MainMenu
                     Functions.ShowTasks();
                     Console.Write("Enter the number of the task you want to remove: ");
                     Functions.RemoveTask();
-
                     break;
                 case "5":
                     True = false;
                     continueTask = false;
                     Console.WriteLine("Goodbye!");
+                    
                     break;
                 default:
                     continueTask = false;
                     break;
             }
-
+            Functions.SaveTaskFile();
             if (continueTask)
             {
                 Console.WriteLine("\nPress any button to continue");
