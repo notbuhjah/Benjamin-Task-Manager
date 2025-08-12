@@ -27,3 +27,4 @@ C:\Users\zbc24besp\OneDrive - EFIF\Dokumenter\GitHub\Afsluttende-projekt-i-grunl
 C:\Users\zbc24besp\OneDrive - EFIF\Dokumenter\GitHub\Afsluttende-projekt-i-grunl-ggende-programmering\AfsluttendeGrunlæggendeProgrammering\obj\Debug\net9.0\AfsluttendeGrunlæggendeProgrammering.genruntimeconfig.cache
 C:\Users\zbc24besp\OneDrive - EFIF\Dokumenter\GitHub\Afsluttende-projekt-i-grunl-ggende-programmering\AfsluttendeGrunlæggendeProgrammering\obj\Debug\net9.0\ref\AfsluttendeGrunlæggendeProgrammering.dll
 C:\Users\zbc24besp\OneDrive - EFIF\Dokumenter\GitHub\Afsluttende-projekt-i-grunl-ggende-programmering\AfsluttendeGrunlæggendeProgrammering\bin\Debug\net9.0\tasks.json
+C:\Users\zbc24besp\OneDrive - EFIF\Dokumenter\GitHub\Afsluttende-projekt-i-grunl-ggende-programmering\AfsluttendeGrunlæggendeProgrammering\obj\Debug\net9.0\AfsluttendeGrunlæggendeProgrammering.sourcelink.json
