@@ -1,1 +1,10 @@
-[]
+[
+  {
+    "TaskName": "Drink water",
+    "Complete": false
+  },
+  {
+    "TaskName": "Charge phone",
+    "Complete": true
+  }
+]
