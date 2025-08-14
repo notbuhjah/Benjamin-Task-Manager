@@ -1,10 +1,12 @@
 [
   {
-    "TaskName": "Drink water",
-    "Complete": false
+    "TaskName": "bello",
+    "Complete": false,
+    "Weekday": 3
   },
   {
-    "TaskName": "Charge phone",
-    "Complete": true
+    "TaskName": "drink water",
+    "Complete": true,
+    "Weekday": 4
   }
 ]

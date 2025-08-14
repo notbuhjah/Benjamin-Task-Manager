@@ -1,8 +1,10 @@
 using System.Text.Json;
+using Microsoft.AspNetCore.Components;
 
 public class Functions
 {
     public static string filepath = "tasks.json";
+    public static DayOfWeek dayofweek;
     public static void AddTaskFnc()
     {
         if (MainMenu.tasks.Count >= 5) { Console.Clear(); Console.WriteLine("You can have a max of 5 active tasks!"); }
@@ -11,10 +13,38 @@ public class Functions
             Console.Clear();
             Console.Write("Enter the task you want to add: ");
             string title = "" + Console.ReadLine();
-            MainMenu.tasks.Add(new TaskItem(title));
+            Console.Write("\nEnter the weekday the task should be done by(sorts by sunday first): ");
+            string weekdayInput = "" + Console.ReadLine();
+            string weekday = weekdayInput.ToLower();
+
+            switch (weekday)
+            {
+                case "monday":
+                    dayofweek = DayOfWeek.Monday;
+                    break;
+                case "tuesday":
+                    dayofweek = DayOfWeek.Tuesday;
+                    break;
+                case "wednesday":
+                    dayofweek = DayOfWeek.Wednesday;
+                    break;
+                case "thursday":
+                    dayofweek = DayOfWeek.Thursday;
+                    break;
+                case "friday":
+                    dayofweek = DayOfWeek.Friday;
+                    break;
+                case "saturday":
+                    dayofweek = DayOfWeek.Saturday;
+                    break;
+                case "sunday":
+                    dayofweek = DayOfWeek.Sunday;
+                    break;
+            }
+            MainMenu.tasks.Add(new TaskItem(title, dayofweek));
             Console.WriteLine("Task added!");
-            
-            MainMenu.tasks = MainMenu.tasks.OrderBy(i => i.Complete).ToList();
+
+            MainMenu.tasks = MainMenu.tasks.OrderBy(i => i.Weekday).ThenBy(i => i.Complete).ToList();
         }
     }
     public static void ShowTasks()
@@ -30,11 +60,12 @@ public class Functions
             for (int i = 0; i < MainMenu.tasks.Count; i++)
             {
                 var status = MainMenu.tasks[i].Complete ? "[Done]" : "[Not done]";
+                var whatday = MainMenu.tasks[i].Weekday;
                 Console.Write($"{i + 1}. {MainMenu.tasks[i].TaskName}  ");
                 Console.ForegroundColor = MainMenu.tasks[i].Complete ? ConsoleColor.Green : ConsoleColor.Red;
-                Console.Write($"  {status}\n");
+                Console.Write($"  {status}  ");
                 Console.ResetColor();
-
+                Console.Write($"  To be done by: {whatday}\n");
             }
         }
     }
@@ -50,7 +81,7 @@ public class Functions
             else
             {
                 MainMenu.tasks[number - 1].Complete = true;
-                MainMenu.tasks = MainMenu.tasks.OrderBy(i => i.Complete).ToList();
+                MainMenu.tasks = MainMenu.tasks.OrderBy(i => i.Weekday).ThenBy(i => i.Complete).ToList();
                 ShowTasks();
                 Console.Write("Task marked as complete! Mark another or continue: ");
                 MarkTask();
